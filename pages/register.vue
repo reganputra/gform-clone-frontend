@@ -5,7 +5,7 @@
           <v-toolbar dark color="primary">Register</v-toolbar>
           
           <v-card-text>
-            <v-form>
+            <v-form ref="form">
               <v-text-field
               label="Name"
               :rules="rules.fullname"
@@ -40,7 +40,7 @@
 
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary">Register</v-btn>
+            <v-btn color="primary" @click="onSubmit">Register</v-btn>
           </v-card-actions>
         </v-card>
 
@@ -65,6 +65,7 @@
     layout: 'auth',
     data(){
       return{
+        emailExist: false,
         form: {
           fullname: '',
           email: '',
@@ -77,7 +78,8 @@
           ],
           email: [
             (v) => !! v || "Email is required",
-            (v) => /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/.test(v) || "Email must be valid"
+            (v) => /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/.test(v) || "Email must be valid",
+            (v) => !this.emailExist || "Email exist"
           ],
           password: [
             (v) => !!v || "Password is required",
@@ -87,6 +89,21 @@
            (v) => !!v || "Password confirmatin is required",
             (v) => v === this.form.password || "Password confirmation must be same with password"
           ]
+        }
+      }
+    },
+    methods: {
+      async onSubmit() {
+        try {
+          if(this.$refs.form.validate()) {
+            await this.$axios.$post('http://localhost:1500/register', this.form)
+          }
+        } catch (error) {
+          console.log(error.response)
+          if(error.response.data.message == 'EMAIL_ALREADY_EXISTS') {
+            this.emailExist = true
+            this.$refs.form.validate()
+          }
         }
       }
     }
