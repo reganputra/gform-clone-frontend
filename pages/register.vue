@@ -16,7 +16,8 @@
               <v-text-field
               label="Email"
               :rules="rules.email"
-              v-model="form.email"  
+              v-model="form.email"
+              @keydown="resetEmailExistMessage"  
               required
               ></v-text-field>
 
@@ -40,7 +41,7 @@
 
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="onSubmit">Register</v-btn>
+            <v-btn :loading="isLoading" color="primary" @click="onSubmit">Register</v-btn>
           </v-card-actions>
         </v-card>
 
@@ -66,6 +67,7 @@
     data(){
       return{
         emailExist: false,
+        isLoading: false,
         form: {
           fullname: '',
           email: '',
@@ -93,10 +95,20 @@
       }
     },
     methods: {
+      resetEmailExistMessage() {
+        this.emailExist = false
+      },
       async onSubmit() {
         try {
           if(this.$refs.form.validate()) {
-            await this.$axios.$post('http://localhost:1500/register', this.form)
+            this.isLoading = true 
+            const response = await this.$axios.$post('http://localhost:1500/register', this.form)
+            if(response.message == "USER_REGISTER_SUCCESS") {
+              // this.$router.push('/dashboard')
+              // Save access token
+              alert("USER_REGISTER_SUCCESS")
+            }
+            this.isLoading = false
           }
         } catch (error) {
           console.log(error.response)
@@ -104,6 +116,7 @@
             this.emailExist = true
             this.$refs.form.validate()
           }
+          this.isLoading = false
         }
       }
     }
