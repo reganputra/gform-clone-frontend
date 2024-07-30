@@ -106,7 +106,7 @@
             if(response.message == "USER_REGISTER_SUCCESS") {
               // this.$router.push('/dashboard')
               // Save access token
-              alert("USER_REGISTER_SUCCESS")
+              alert()
             }
             this.isLoading = false
           }
