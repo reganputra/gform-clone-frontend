@@ -76,20 +76,20 @@
         },
         rules: {
           fullname: [
-            v => !! v || "Fullname is required"
+            v => !! v || this.$t('FIELD_REQUIRED', { field: 'fullname'})
           ],
           email: [
-            (v) => !! v || "Email is required",
-            (v) => /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/.test(v) || "Email must be valid",
-            (v) => !this.emailExist || "Email exist"
+            (v) => !! v || this.$t('FIELD_REQUIRED', { field: 'email'}),
+            (v) => /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/.test(v) || this.$t('EMAIL_INVALID'),
+            (v) => !this.emailExist || this.$t('EMAIL_EXIST')
           ],
           password: [
-            (v) => !!v || "Password is required",
-            (v) => v.length >= 6 || "Password must be at least 6 characters"
+            (v) => !!v || this.$t('FIELD_REQUIRED', { field: 'password'}),
+            (v) => v.length >= 6 || this.$t("FIELD_MIN", { field: 'password', min: 6})
           ],
           password_confirmation: [
-           (v) => !!v || "Password confirmatin is required",
-            (v) => v === this.form.password || "Password confirmation must be same with password"
+           (v) => !!v || this.$t('FIELD_REQUIRED', { field: 'konfirmasi password'}),
+            (v) => v === this.form.password || this.$t('FIELD_CONFIRM', { fieldConfirm: 'konfirmasi password', field: 'password'})
           ]
         }
       }
@@ -106,6 +106,9 @@
             if(response.message == "USER_REGISTER_SUCCESS") {
               // this.$router.push('/dashboard')
               // Save access token
+              this.$store.commit('auth/setFullname', response.fullname)
+              this.$store.commit('auth/setAccessToken', response.accessToken)
+              this.$store.commit('auth/setRefreshToken', response.refreshTokenn)
               alert()
             }
             this.isLoading = false
