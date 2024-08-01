@@ -36,15 +36,15 @@
       </v-card>
 
       <div class="d-flex align-baseline"> 
-        <p>Kamu sudah punya akun?</p>
+        <p>Kamu belum punya akun??</p>
         <v-btn
         text
         plain
-        to="/login"
+        to="/register"
         :ripple="false"
         color="primary"
         class="pl-1"
-        >Login</v-btn>
+        >Register</v-btn>
       </div>
 
     </v-col>
