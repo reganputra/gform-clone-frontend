@@ -104,12 +104,10 @@
             this.isLoading = true 
             const response = await this.$axios.$post('http://localhost:1500/register', this.form)
             if(response.message == "USER_REGISTER_SUCCESS") {
-              // this.$router.push('/dashboard')
-              // Save access token
               this.$store.commit('auth/setFullname', response.fullname)
               this.$store.commit('auth/setAccessToken', response.accessToken)
               this.$store.commit('auth/setRefreshToken', response.refreshTokenn)
-              alert()
+              this.$router.push({name: 'index___' + this.$i18n.locale})
             }
             this.isLoading = false
           }

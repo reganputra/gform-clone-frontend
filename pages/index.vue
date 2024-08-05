@@ -78,10 +78,12 @@
 
 <script>
 export default {
+  middleware: ['authenticated'],
   head(){
     return {
       title: 'Home' 
     }
-  }
+  },
+ 
 }
 </script>
