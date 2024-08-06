@@ -55,6 +55,7 @@
 import { mapState } from 'vuex'
 
 export default {
+  middleware: ['unauthenticated'],
   layout: 'auth',
   data(){
     return{
