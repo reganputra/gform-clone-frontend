@@ -15,7 +15,6 @@ export const getters = {
     }
 }
 
-
 export const mutations = {
     setFullname(state, fullname){
         state.fullname = fullname
@@ -25,7 +24,12 @@ export const mutations = {
     },
     setRefreshToken(state, refreshToken){
         state.refreshToken = refreshToken
-    }
+    },
+    logout(state){
+        state.fullname = null
+        state.accessToken = null
+        state.refreshToken = null
+    },
 }
 
 export const actions = {
