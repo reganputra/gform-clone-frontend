@@ -103,7 +103,7 @@
         try {
           if(this.$refs.form.validate()) {
             this.isLoading = true 
-            const response = await this.$axios.$post('http://localhost:1500/register', this.form)
+            const response = await this.$axios.$post('/register', this.form)
             if(response.message == "USER_REGISTER_SUCCESS") {
               this.$store.commit('auth/setFullname', response.fullname)
               this.$store.commit('auth/setAccessToken', response.accessToken)
