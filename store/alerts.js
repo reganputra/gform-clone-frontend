@@ -1,8 +1,8 @@
 export const state = () => ({
     alerts: [
-        {message: 'tes1', type:'error', show: true},
-        {message: 'tes2', type:'success', show: true},
-        {message: 'tes3', type:'warning', show: true}
+        // {message: 'tes1', type:'error', show: true},
+        // {message: 'tes2', type:'success', show: true},
+        // {message: 'tes3', type:'warning', show: true}
     ]
 })
 
