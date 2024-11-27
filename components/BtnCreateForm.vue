@@ -26,6 +26,11 @@ export default {
             this.$router.push(`/questions/${forms.form._id}`)
         } catch (error) {
             console.log(error)
+            this.$store.commit('alerts/show', {
+                type: 'error',
+                show: true,
+                message: 'SERVER_ERROR'
+            })
             this.isLoading = false
         }
            
