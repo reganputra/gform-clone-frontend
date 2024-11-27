@@ -1,3 +1,4 @@
+import { Promise } from "core-js"
 
 export default function({$axios, redirect ,store}) {
 $axios.onRequest(config => {
@@ -26,7 +27,10 @@ $axios.onRequest(config => {
                 let originalRequest = error.config
                 originalRequest.headers['Authorization'] = `Bearer ${response.accessToken}`
                 return $axios(originalRequest)
+            } else {
+               return Promise.reject(error)
             }
+
         } catch (error) {
             if(error.message === 'LOGOUT')
             return redirect('/logout')
